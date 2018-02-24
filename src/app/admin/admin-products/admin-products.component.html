@@ -1,0 +1,25 @@
+<p>
+    <button class="btn btn-primary" routerLink="/admin/product-form">New</button>
+</p>
+<P>
+  <input #query
+         (keyup)="filter(query.value)" 
+         type="text" class="form-control" placeholder="Search...." >
+</P>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Price</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor = "let p of filteredProducts">
+      <th>{{p.title}}</th>
+      <th>{{p.price}}</th>
+      <th><a [routerLink]="['/admin/product-form', p.$key]">Edit</a></th>
+    </tr>
+  </tbody>
+</table>
