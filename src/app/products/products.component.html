@@ -1,16 +1,35 @@
 <div class="row">
-  <ng-container  *ngFor="let p of products$ | async; let i = index">
-    <div class="col-lg-3">
-      <div class="card">
-        <img src="{{p.imageUrl}}" style="width:100%">
-        <div class="container">
-          <h4>
-            <b>{{p.title}}</b>
-          </h4>
-          <p>{{p.price | currency:'USD': true}}</p>
-        </div>
-      </div>
+  <div class="col-lg-2">
+    <div class="list-group">
+      <a class="list-group-item list-group-item-action"
+        [class.active]="!category" routerLink="/"
+        >All categories
+      </a>
+
+      <a *ngFor="let c of categories$ | async" 
+          routerLink="/" [queryParams]="{ category : c.$key }" 
+          [class.active]="category === c.$key"
+          class="list-group-item list-group-item-action">
+          {{c.name}}
+      </a>
+
     </div>
-    <!-- <div *ngIf="(i + 1) % 2 === 0" class="col"></div> -->
-  </ng-container>
+  </div>
+  <div class="col-lg-10">
+    <div class="row">
+      <ng-container *ngFor="let p of filteredProducts; let i = index">
+        <div class="col-lg-3">
+          <div class="card">
+            <img src="{{p.imageUrl}}" style="width:100%">
+            <div class="container">
+              <h4>
+                <b>{{p.title}}</b>
+              </h4>
+              <p>{{p.price | currency:'USD': true}}</p>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
 </div>
